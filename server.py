@@ -9,8 +9,8 @@ PORT = 8000
 dbpath = "./"
 nosql_filename = "nosql.json"
 
+
 class BirthdayServer(HTTPServer):
-    
 
     def __init__(self, *args, **kwargs):
 
@@ -28,13 +28,14 @@ class BirthdayServer(HTTPServer):
                 print("NoSQL Birthday DB created.")
 
         nosql["kacper"] = "19/08"
-        
+
         super(self.__class__, self).__init__(*args, **kwargs)
+
 
 class BirthdayHTTP(BaseHTTPRequestHandler):
 
     def do_GET(self):
-        
+
         print("===== GET REQUEST =====")
 
         print(self.headers)
@@ -45,13 +46,15 @@ class BirthdayHTTP(BaseHTTPRequestHandler):
             queries = [x for x in query.split("&")]
             queries_dict = {}
             for query in queries:
-                query_split = query[:query.find("=")], query[query.find("=")+1:]
+                query_split = query[:query.find(
+                    "=")], query[query.find("=")+1:]
                 queries_dict[query_split[0]] = query_split[1]
 
             # list entries
             if "list" in queries_dict.keys():
-                
-                limit = len(nosql) if not queries_dict["list"].isdigit() else int(queries_dict["list"])
+
+                limit = len(nosql) if not queries_dict["list"].isdigit() else int(
+                    queries_dict["list"])
 
                 listEntries = []
                 for i, name in enumerate(nosql.keys()):
@@ -101,7 +104,7 @@ class BirthdayHTTP(BaseHTTPRequestHandler):
         print("=======================")
 
     def do_POST(self):
-        
+
         print("===== POST REQUEST =====")
 
         # Get the GET request query - aka the name
@@ -132,9 +135,11 @@ class BirthdayHTTP(BaseHTTPRequestHandler):
 
             # Send response
             if exists:
-                self.wfile.write(f"{queries_dict['name']}'s birthday was updated.".encode("utf-8"))
+                self.wfile.write(
+                    f"{queries_dict['name']}'s birthday was updated.".encode("utf-8"))
             else:
-                self.wfile.write(f"{queries_dict['name']}'s birthday was saved.".encode("utf-8"))
+                self.wfile.write(
+                    f"{queries_dict['name']}'s birthday was saved.".encode("utf-8"))
 
         except TypeError as ex:
             self.send_error(400, "Empty POST Request")
@@ -150,7 +155,7 @@ class BirthdayHTTP(BaseHTTPRequestHandler):
         print("========================")
 
     def do_DELETE(self):
-        
+
         print("===== DELETE REQUEST =====")
 
         print(self.headers)
@@ -161,7 +166,8 @@ class BirthdayHTTP(BaseHTTPRequestHandler):
             queries = [x for x in query.split("&")]
             queries_dict = {}
             for query in queries:
-                query_split = query[:query.find("=")], query[query.find("=")+1:]
+                query_split = query[:query.find(
+                    "=")], query[query.find("=")+1:]
                 queries_dict[query_split[0]] = query_split[1]
 
             # Delete the user entry
