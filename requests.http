@@ -1,0 +1,27 @@
+GET http://localhost:8000
+    ?name=kacper
+    &list=all
+
+###
+
+GET http://localhost:8000
+    ?name=kacper
+
+###
+
+GET http://localhost:8000
+    ?name=kacpertwr
+
+###
+
+POST http://localhost:8000
+    ?name=kacpertwr
+
+19/08
+
+###
+
+DELETE http://localhost:8000
+    ?name=kacpertwr
+
+###
